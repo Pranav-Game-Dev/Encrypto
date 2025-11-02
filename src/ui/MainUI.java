@@ -120,10 +120,7 @@ public class MainUI extends Application {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        Button themeToggle = new Button("🌙 Dark Mode");
-        themeToggle.setOnAction(e -> toggleTheme(themeToggle));
-
-        header.getChildren().addAll(titleLabel, spacer, themeToggle);
+        header.getChildren().addAll(titleLabel, spacer);
         return header;
     }
 
@@ -1524,9 +1521,6 @@ public class MainUI extends Application {
      * Applies the current theme CSS.
      */
     private void applyTheme() {
-        mainScene.getStylesheets().clear();
-        String cssFile = getClass().getResource("EncryptoUI.css").toExternalForm();
-        mainScene.getStylesheets().add(cssFile);
 
         // Apply theme class to root
         if (currentTheme.equals("dark")) {
