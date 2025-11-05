@@ -1,125 +1,236 @@
-<img width="824" height="421" alt="Gemini_Generated_Image_qssgfsv341qv341qv341q" src="https://github.com/user-attachments/assets/890fcc5d-969b-47c9-b0eb-ad68899a9396" />
+# Encrypto - File & Folder Encryption System
 
-# 🛡️ Encrypto — File & Folder Encryption System  
+A robust Java-based file encryption system that provides AES-256-GCM encryption for files and folders with support for password-based keys, emoji keys, and self-extracting encrypted archives.
 
-**Encrypto** is a powerful Java-based encryption system designed to secure files and folders using **AES-256-GCM** encryption.  
-It supports both **manual and auto-generated keys**, **emoji/mixed passwords**, and even **self-extracting encrypted JAR files** that can decrypt themselves with the correct key.
+## Features
 
----
+- **AES-256-GCM Encryption**: Military-grade encryption with built-in integrity verification
+- **File & Folder Support**: Encrypt individual files or entire directory structures
+- **Flexible Key Input**: Support for passwords, emoji sequences, and mixed-character keys
+- **Auto Key Generation**: Automatically generate strong random encryption keys
+- **Self-Extracting Archives**: Create standalone JAR files that decrypt themselves
+- **Metadata Preservation**: Maintains original file timestamps and directory structure
+- **Cross-Platform**: Works on Windows, Linux, and macOS
+- **Dual Interface**: Both command-line (CLI) and graphical (JavaFX GUI) interfaces
 
-## ⚙️ Features  
+## Technical Specifications
 
-- 🔒 **AES-256-GCM Encryption:** Secure encryption with integrity verification.  
-- 🗂️ **Folder Encryption:** Encrypts entire directories while preserving structure and metadata.  
-- 🧩 **Emoji / Mixed Keys:** Supports any characters — text, emojis, symbols.  
-- 🔑 **Auto Key Generation:** Generates a strong random encryption key automatically.  
-- 🧱 **Packed File Structure:** Encrypted output includes filenames, timestamps, and hierarchy data.  
-- 🧰 **Self-Extracting JARs:** Create standalone `.jar` files that ask for the key and decrypt themselves.  
-- 🚮 **Secure Delete Utility:** Built-in method for secure file shredding (used internally).  
-- 🧠 **Cross-Platform:** Works seamlessly on Windows, Linux, and macOS.  
-- 💬 **CLI Interface:** Modular command-line control with clean workflow.  
-- 🪟 **UI Coming Soon:** JavaFX-based GUI in upcoming releases.  
+- **Encryption Algorithm**: AES-256-GCM (Galois/Counter Mode)
+- **Key Derivation**: PBKDF2-HMAC-SHA256 with 210,000 iterations
+- **Salt Length**: 128 bits (16 bytes)
+- **IV Length**: 96 bits (12 bytes)
+- **Authentication Tag**: 128 bits
+- **Minimum Password Length**: 8 characters
 
----
+## Requirements
 
-## 🧩 Technical Details  
+- Java 8 or higher
+- Maven 3.x (for building)
+- `javac` in PATH (for self-extracting archive creation)
 
-- **Language:** Java  
-- **Build System:** Maven  
-- **Encryption Algorithm:** AES-256-GCM  
-- **Key Derivation:** PBKDF2WithHmacSHA256 (210,000 iterations, 128-bit salt)  
-- **Libraries Used:** Only Java’s standard crypto (`javax.crypto`, `java.security`)  
-- **Output Types:**  
-  - `.encrypted` — Standard encrypted files/folders  
-  - `.jar` — Self-extracting encrypted executables  
+## Installation
 
----
-
-## 🚀 How to Install  
-
-1. Clone or download this repository.  
-2. Open the project in **IntelliJ IDEA** (recommended).  
-3. Mark `src` as **Sources Root**.  
-4. Ensure your JDK is **Java 8 or above**.  
-5. Build using Maven or compile manually:  
-   ```bash
-   javac -d bin src/core/*.java src/keys/*.java src/cli/*.java src/packager/*.java
-   ```
-
----
-
-## 🧭 How to Use (CLI)
-
-### Run from IntelliJ IDEA:
-- Right-click `MainCLI.java` → **Run 'MainCLI.main()'**
-
-### Run from CMD/Terminal:
+### Clone the Repository
 ```bash
-cd "C:\path\to\Encrypto"
+git clone <repository-url>
+cd Encrypto
+```
+
+### Build with Maven
+```bash
+mvn clean install
+```
+
+### Compile Manually
+```bash
+javac -d bin src/core/*.java src/keys/*.java src/cli/*.java src/packager/*.java
+```
+
+## Usage
+
+### Command Line Interface (CLI)
+
+#### Run from IDE
+Right-click `MainCLI.java` → Run 'MainCLI.main()'
+
+#### Run from Terminal
+```bash
+cd path/to/Encrypto
 java -cp bin cli.MainCLI
 ```
 
----
+#### Main Menu Options
+1. **Encrypt file/folder** - Encrypt files or directories
+2. **Decrypt file/folder** - Decrypt encrypted files
+3. **Create self-extracting encrypted file** - Generate standalone JAR archives
+4. **Exit** - Close the application
 
-### 🧱 Main Menu:
-```
-1. Encrypt file/folder
-2. Decrypt file/folder
-3. Create self-extracting encrypted file
-4. Exit
-```
+### Graphical User Interface (GUI)
 
-#### Example (File Encryption)
-```
-Enter file/folder path: C:\test\data.txt
-Enter output directory: C:\test\encrypted_output
-Choose key mode: (1) Manual (2) Auto
-Enter/Receive key → Encrypted file saved as .encrypted
+```bash
+java -cp bin ui.MainUI
 ```
 
-#### Example (Decryption)
-```
-Enter path to .encrypted file
-Enter output directory
-Enter key → Decrypted file restored with original name & metadata
-```
+The GUI provides three tabs:
+- **Encrypt**: Drag & drop files/folders for encryption
+- **Decrypt**: Decrypt encrypted files
+- **Self-Extractor**: Create self-extracting JAR files
 
-#### Example (Self-Extracting File)
-```
-Enter file/folder path
-Enter output directory
-Choose key mode → .jar file created
-Run that .jar → Enter key → Auto-decrypts → Self-deletes
-```
+## Encryption Workflow
 
----
-
-## 🧱 Project Structure
-
+### Encrypting a File
 ```
-/Encrypto
- ├── src/
- │   ├── core/           → Encryptor, Decryptor, FileUtils
- │   ├── keys/           → KeyManager, PBKDF2Util, EmojiKeyUtil
- │   ├── cli/            → Commands, MainCLI
- │   └── packager/       → StubGenerator
- ├── bin/                → Compiled classes
- ├── target/             → Maven build output
- └── README.md
+1. Select input file/folder
+2. Choose output directory
+3. Enter encryption key (or auto-generate)
+4. Encrypted file saved with .encrypted extension
 ```
 
----
+### Decrypting a File
+```
+1. Select encrypted .encrypted file
+2. Choose output directory
+3. Enter decryption key
+4. Original file/folder restored with metadata
+```
 
-## 🔮 Upcoming Updates  
+### Creating Self-Extracting Archive
+```
+1. Select input file/folder
+2. Choose output directory
+3. Enter encryption key (or auto-generate)
+4. JAR file created that can decrypt itself
+5. Double-click JAR → Enter key → Files extracted
+```
 
-- 🪟 **JavaFX UI** — Interactive visual interface  
-- 🧱 **Compression + Metadata Encryption Enhancements**  
+## Project Structure
 
----
+```
+Encrypto/
+├── src/
+│   ├── cli/              # Command-line interface
+│   │   ├── MainCLI.java
+│   │   └── Commands.java
+│   ├── core/             # Core encryption/decryption logic
+│   │   ├── Encryptor.java
+│   │   ├── Decryptor.java
+│   │   └── FileUtils.java
+│   ├── keys/             # Key management utilities
+│   │   ├── KeyManager.java
+│   │   ├── PBKDF2Util.java
+│   │   └── EmojiKeyUtil.java
+│   ├── packager/         # Self-extracting JAR generator
+│   │   └── StubGenerator.java
+│   └── ui/               # JavaFX GUI (optional)
+│       └── MainUI.java
+├── target/               # Maven build output
+├── pom.xml              # Maven configuration
+└── README.md
+```
 
-## 📄 License  
+## Security Features
 
-This project is free for educational and non-commercial use.  
-Feel free to fork, improve, and experiment with it responsibly.  
+- **PBKDF2 Key Derivation**: 210,000 iterations to prevent brute-force attacks
+- **Unique Salts**: Each encryption uses a cryptographically random salt
+- **GCM Mode**: Provides both encryption and authentication
+- **Secure Memory Handling**: Passwords cleared from memory after use
+- **No Key Storage**: Keys are never stored, only derived from passwords
 
-**© 2025 Encrypto Project**
+## File Format
+
+### Encrypted File Structure
+```
+[16-byte Salt][12-byte IV][Encrypted Data + 16-byte Auth Tag]
+```
+
+### Packed Folder Structure
+```
+[Marker][Folder Name][Entry Count][Entries...]
+Each Entry: [Path][IsDirectory][Timestamp][Size][Data]
+```
+
+## Examples
+
+### Encrypt a File
+```
+Enter file/folder path: C:\Documents\report.pdf
+Enter output directory: C:\Encrypted
+Choose key mode: 1 (Manual)
+Enter key: MySecurePassword123
+→ Output: C:\Encrypted\enc_abc123xyz789.encrypted
+```
+
+### Decrypt a File
+```
+Enter path to encrypted file: C:\Encrypted\enc_abc123xyz789.encrypted
+Enter output directory: C:\Decrypted
+Enter key: MySecurePassword123
+→ Output: C:\Decrypted\report.pdf (restored)
+```
+
+### Using Emoji Keys
+```
+Enter key: 🔒🐱🌟🚀💎🎨🔥🎭
+(Minimum 2 emojis required)
+```
+
+## Error Handling
+
+- **Wrong Key**: Authentication tag mismatch detected
+- **Corrupted File**: Integrity verification fails
+- **Invalid Format**: File structure validation errors
+- **Missing Files**: Clear error messages with file paths
+
+## Performance Considerations
+
+- Uses streaming I/O for memory-efficient large file handling
+- 8KB buffer size for optimal disk I/O
+- Progress indicators for long operations (GUI)
+- Background threads prevent UI freezing (GUI)
+
+## Limitations
+
+- Self-extracting JARs require `javac` in system PATH
+- Maximum file path length: 260 characters (Windows)
+- Emoji key support varies by platform keyboard
+- SSD secure deletion effectiveness is limited by wear-leveling
+
+## Contributing
+
+Contributions are welcome! Areas for improvement:
+- Additional encryption algorithms
+- Cloud storage integration
+- Compression before encryption
+- Multi-threading for large folders
+
+## License
+
+This project is free for educational and non-commercial use.
+
+## Version
+
+**Current Version**: 1.0.0
+
+## Author
+
+© 2025 Encrypto Project
+
+## Troubleshooting
+
+### "javac not found" Error
+Ensure JDK is installed and `javac` is in your system PATH.
+
+### "Wrong key or corrupted file"
+- Verify the key is exactly as entered during encryption
+- Check if file was modified after encryption
+- Ensure complete file transfer (no truncation)
+
+### "Out of Memory" Error
+For very large files, increase JVM heap size:
+```bash
+java -Xmx2G -cp bin cli.MainCLI
+```
+
+## Acknowledgments
+
+Built using Java's standard cryptography libraries (`javax.crypto`, `java.security`).
